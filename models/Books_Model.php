@@ -17,7 +17,7 @@ class Books_Model extends Model
 
     public function filterBooks($data)
     {
-        $prepare = 'SELECT DISTINCT * FROM ksiazki , booksgrade  ';
+        $prepare = 'SELECT  k.* FROM ksiazki as k , booksgrade as b  ';
 
         $filters = [];
         $binds = [];
@@ -58,7 +58,7 @@ class Books_Model extends Model
         }
 
         if (($data['noteMin']) && ($data['noteMax'])) {
-            $filters[] = "grade BETWEEN :noteMin AND :noteMax AND ksiazki.id = booksgrade.bookID ";
+//            $filters[] = "grade BETWEEN :noteMin AND :noteMax ";
 
             $binds[':noteMin'] = (int)$data['noteMin'];
             $binds[':noteMax'] = (int)$data['noteMax'];
@@ -68,24 +68,20 @@ class Books_Model extends Model
         if (!empty($filters)) {
 
             $filtersAsString = " " . implode(" AND ", $filters);
-            $prepare .= ' WHERE ' . $filtersAsString ;
+            $prepare .= ' WHERE k.id = b.bookID AND ' . $filtersAsString . ' GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)> :noteMin AND ROUND(AVG(b.grade),1)< :noteMax' ;
         }
 
+//        echo '<pre>';
+//        print_r($prepare);
+//        die;
 
         $query = $this->db->prepare($prepare);
-//        foreach ($binds as $param => $value) {
-//
-//            $query->bindParam($param, $value);
-//        }
-//
 
         $result1 = $query->execute($binds);
 
         $result = $query->fetchAll(PDO::FETCH_ASSOC);
 //
-//        echo '<pre>';
-//        print_r($result);
-//        die;
+
 
         return $result ?? false;
 

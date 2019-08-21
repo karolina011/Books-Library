@@ -1,6 +1,6 @@
 <?php
 
-define("URL", "http://localhost/ksiazki/");
+define("URL", "http://localhost/Books-Library/");
 
 define('DB_TYPE', 'mysql');
 define('DB_HOST', 'localhost');
