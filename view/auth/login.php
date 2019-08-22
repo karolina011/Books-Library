@@ -1,3 +1,4 @@
+<div class="register col-md-4 col-s-8 offset-md-4 offset-sm-2 my-5 py-4 text-center rounded ">
 
 <h1>LOGOWANIE</h1>
 
@@ -20,3 +21,5 @@
 </form>
 
 <p>Nie masz jeszcze konta? <a href="<?php echo URL; ?>Auth/registerView">Zarejestruj się</a></p>
+
+</div>

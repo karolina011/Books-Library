@@ -70,6 +70,10 @@ class Books_Model extends Model
             $filtersAsString = " " . implode(" AND ", $filters);
             $prepare .= ' WHERE k.id = b.bookID AND ' . $filtersAsString . ' GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)> :noteMin AND ROUND(AVG(b.grade),1)< :noteMax' ;
         }
+        else
+        {
+            $prepare .= ' WHERE k.id = b.bookID GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)> :noteMin AND ROUND(AVG(b.grade),1)< :noteMax' ;
+        }
 
 //        echo '<pre>';
 //        print_r($prepare);
