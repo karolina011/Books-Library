@@ -62,3 +62,4 @@ $(document).on('click', '.addGrade', function () {
       dataType: "JSON"
    });
 });
+

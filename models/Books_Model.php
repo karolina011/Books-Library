@@ -165,4 +165,26 @@ class Books_Model extends Model
         return $grade ?? false;
     }
 
+    public function sendBook($data, $userID)
+    {
+        $query = $this->db->prepare('INSERT INTO newbooks VALUES (null, :userID, :author, :title, :year, :type, :description) ');
+        $query->execute(array(
+            ':userID' => $userID,
+            ':author' => $data['author'],
+            ':title' => $data['title'],
+            ':year' => $data['year'],
+            ':type' => $data['type'],
+            ':description' => $data['description'],
+        ));
+    }
+
+    public function getBooks()
+    {
+        $query = $this->db->query('SELECT * FROM newbooks ');
+
+        $sth = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $sth ?? false;
+    }
+
 }

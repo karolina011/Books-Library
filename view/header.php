@@ -171,7 +171,7 @@
                     <?php endif; ?>
                     <?php if (Session::get('user')['rola'] == 'admin') :?>
                         <a class="dropdown-item" href="#">Wiadomości</a>
-                        <a class="dropdown-item" href="<?php echo URL; ?>Accept">Do zaakceptowania</a>
+                        <a class="dropdown-item" href="<?php echo URL; ?>Books/acceptBookView">Do zaakceptowania</a>
                         <a class="dropdown-item" href="#">podlink 5</a>
                     <?php endif; ?>
                     <a class="dropdown-item" href="<?php echo URL; ?>Auth/logout">Wyloguj</a>

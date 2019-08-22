@@ -57,11 +57,26 @@ class Books extends Controller
 
         $blad = false;
 
+        if (!(Session::get('loggedIn')))
+        {
+            $_SESSION['infoAddBook'] = "Aby wysłać propozycję książki musisz się zalogować";
+            die;
+        }
+
         $result = $this->model->isBookExistInDatabase($data);
         if (is_string($result))
         {
-            $_SESSION['errBook'] = "Podana książka istnieje już w bazie danych!";
+            $_SESSION['infoAddBook'] = "Podana książka istnieje już w bazie danych!";
             $blad = true;
+        }
+
+        foreach ($data as $var)
+        {
+            if (empty($var))
+            {
+                $blad = true;
+                $_SESSION['infoAddBook'] = "Wszystkie pola muszą zostać wypełnione!";
+            }
         }
 
 
@@ -73,7 +88,10 @@ class Books extends Controller
         }
         else
         {
-            echo "Nie ma błędu";
+            $this->model->sendBook($data, Session::get('user')['id']);
+            $_SESSION['infoAddBook'] = "Propozycja książki została wysłana do administratora i czeka na akceptację.";
+            header("Location: " . URL . "books/addBookView");
+            exit();
         }
 
     }
@@ -108,6 +126,23 @@ class Books extends Controller
         }
         echo "bład";
     }
+
+    public function acceptBookView()
+    {
+        $result = $this->model->getBooks();
+
+        $this->view->getBooks = $result;
+
+        $this->view->render('books/accept');
+    }
+
+    public function acceptBook($book)
+    {
+        echo '<pre>';
+        print_r($book);
+        die;
+    }
+
 
 
 }
