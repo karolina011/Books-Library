@@ -5,7 +5,7 @@ class Index_Model extends Model
 {
     public function books()
     {
-        $query = $this->db->query('SELECT  k.* FROM ksiazki as k , booksgrade as b  WHERE k.id = b.bookID GROUP BY b.bookID  LIMIT 5');
+        $query = $this->db->query('SELECT  k.* FROM ksiazki as k , booksgrade as b  WHERE k.id = b.bookID GROUP BY b.bookID ORDER BY ROUND(AVG(b.grade), 1) DESC LIMIT 5');
 
         $sth = $query->fetchAll(PDO::FETCH_ASSOC);
 

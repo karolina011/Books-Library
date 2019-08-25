@@ -48,7 +48,7 @@
                                     <p><b>Opis: </b><?php echo $book['description']; ?></p>
 
 
-                                        <button type="submit" class="btn btn-danger"><a class="text-white" href="<?php echo URL; ?>Books/acceptBook/<?php $book['id']; ?>">Zaakceptuj</a></button>
+                                        <button type="submit" class="btn btn-danger"><a class="text-white" href="<?php echo URL; ?>Books/acceptBook/<?php echo $book['id']; ?>">Zaakceptuj</a></button>
                                         <button type="submit" class="btn btn-dark"><a class="text-white" href="#">Odrzuć</a></button>
                                 </div>
 
@@ -61,45 +61,45 @@
                         </div>
                     </div>
 
-                <?php endforeach; die;?>
+                <?php endforeach; ?>
 
             </tbody>
         </table>
 
 
-
-
-        <div class="col-md-5 py-3 bg-white shadow rounded">
-
-            <h4>Pozycja 1</h4>
-
-            <hr/>
-            <p>Autor:</p>
-            <p>Tytuł:</p>
-            <p>Rok wydania:</p>
-            <p>Gatunek:</p>
-            <p>Opis:</p>
-
-            <button type="button" class="btn btn-danger">Zaakceptuj</button>
-            <button type="button" class="btn btn-dark">Odrzuć</button>
-
-        </div>
-
-        <div class="col-md-5 offset-2 py-3 bg-white shadow rounded">
-
-            <h4>Pozycja 2</h4>
-
-            <hr/>
-            <p>Autor:</p>
-            <p>Tytuł:</p>
-            <p>Rok wydania:</p>
-            <p>Gatunek:</p>
-            <p>Opis:</p>
-
-            <button type="button" class="btn btn-danger">Zaakceptuj</button>
-            <button type="button" class="btn btn-dark">Odrzuć</button>
-
-        </div>
+<!---->
+<!---->
+<!--        <div class="col-md-5 py-3 bg-white shadow rounded">-->
+<!---->
+<!--            <h4>Pozycja 1</h4>-->
+<!---->
+<!--            <hr/>-->
+<!--            <p>Autor:</p>-->
+<!--            <p>Tytuł:</p>-->
+<!--            <p>Rok wydania:</p>-->
+<!--            <p>Gatunek:</p>-->
+<!--            <p>Opis:</p>-->
+<!---->
+<!--            <button type="button" class="btn btn-danger">Zaakceptuj</button>-->
+<!--            <button type="button" class="btn btn-dark">Odrzuć</button>-->
+<!---->
+<!--        </div>-->
+<!---->
+<!--        <div class="col-md-5 offset-2 py-3 bg-white shadow rounded">-->
+<!---->
+<!--            <h4>Pozycja 2</h4>-->
+<!---->
+<!--            <hr/>-->
+<!--            <p>Autor:</p>-->
+<!--            <p>Tytuł:</p>-->
+<!--            <p>Rok wydania:</p>-->
+<!--            <p>Gatunek:</p>-->
+<!--            <p>Opis:</p>-->
+<!---->
+<!--            <button type="button" class="btn btn-danger">Zaakceptuj</button>-->
+<!--            <button type="button" class="btn btn-dark">Odrzuć</button>-->
+<!---->
+<!--        </div>-->
 
     </div>
 

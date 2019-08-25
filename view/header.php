@@ -22,7 +22,7 @@
 <!--    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>-->
     <script type="text/javascript" src="<?php echo URL;?>js/jquery.js"></script>
     <script type="text/javascript" src="<?php echo URL;?>js/custom.js"></script>
-    <script src="<?php echo URL;?>js/niewiem.js"></script>
+    <script src="<?php echo URL;?>js/myJs.js"></script>
     <script src="<?php echo URL;?>js/bootstrap.min.js"></script>
 
     <script type="text/javascript">

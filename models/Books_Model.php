@@ -68,16 +68,12 @@ class Books_Model extends Model
         if (!empty($filters)) {
 
             $filtersAsString = " " . implode(" AND ", $filters);
-            $prepare .= ' WHERE k.id = b.bookID AND ' . $filtersAsString . ' GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)> :noteMin AND ROUND(AVG(b.grade),1)< :noteMax' ;
+            $prepare .= ' WHERE k.id = b.bookID AND ' . $filtersAsString . ' GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)> :noteMin AND ROUND(AVG(b.grade),1)< :noteMax ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
         }
         else
         {
-            $prepare .= ' WHERE k.id = b.bookID GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)> :noteMin AND ROUND(AVG(b.grade),1)< :noteMax' ;
+            $prepare .= ' WHERE k.id = b.bookID GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)>= :noteMin AND ROUND(AVG(b.grade),1)<= :noteMax ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
         }
-
-//        echo '<pre>';
-//        print_r($prepare);
-//        die;
 
         $query = $this->db->prepare($prepare);
 
