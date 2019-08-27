@@ -88,10 +88,15 @@ class Books extends Controller
         }
         else
         {
-            $this->model->sendBook($data, Session::get('user')['id']);
-            $_SESSION['infoAddBook'] = "Propozycja książki została wysłana do administratora i czeka na akceptację.";
+            $result = $this->model->sendBook($data, Session::get('user')['id']);
+            if ($result)
+            {
+                $_SESSION['infoAddBook'] = "Propozycja książki została wysłana do administratora i czeka na akceptację.";
+                header("Location: " . URL . "books/addBookView");
+                exit();
+            }
+            $_SESSION['infoAddBook'] = "Coś poszło nie tak, spróbuj jeszcze raz";
             header("Location: " . URL . "books/addBookView");
-            exit();
         }
 
     }
@@ -136,13 +141,22 @@ class Books extends Controller
         $this->view->render('books/accept');
     }
 
-    public function acceptBook($book)
+    public function acceptBook($bookID)
     {
-        echo '<pre>';
-        print_r($book);
-        die;
+        $this->model-> acceptBook($bookID);
     }
 
+    public function deleteBook($bookID)
+    {
+        $this->model-> deleteBook($bookID);
+    }
+
+//    public function editBook($bookID)
+//    {
+//
+//        $this->view->render('books/edit');
+//
+//    }
 
 
 }

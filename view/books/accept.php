@@ -24,12 +24,12 @@
 
                     <tr>
                         <td>Pozycja 1</td>
-                        <td><?php echo $book['author']; ?></td>
-                        <td><?php echo $book['title']; ?></td>
-                        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Szczegóły</button></td>
+                        <td><?php echo $book['autor']; ?></td>
+                        <td><?php echo $book['tytul']; ?></td>
+                        <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal<?php echo $book['id']; ?>">Szczegóły</button></td>
                     </tr>
 
-                    <div class="modal" id="myModal">
+                    <div class="modal" id="myModal<?php echo $book['id']; ?>">
                         <div class="modal-dialog">
                             <div class="modal-content">
 
@@ -41,15 +41,15 @@
 
                                 <!-- Modal body -->
                                 <div class="modal-body">
-                                    <p><b>Autor: </b><?php echo $book['author']; ?></p>
-                                    <p><b>Tytuł: </b><?php echo $book['title']; ?></p>
-                                    <p><b>Rok wydania: </b><?php echo $book['year']; ?></p>
-                                    <p><b>Gatunek: </b><?php echo $book['type']; ?></p>
-                                    <p><b>Opis: </b><?php echo $book['description']; ?></p>
+                                    <p><b>Autor: </b><?php echo $book['autor']; ?></p>
+                                    <p><b>Tytuł: </b><?php echo $book['tytul']; ?></p>
+                                    <p><b>Rok wydania: </b><?php echo $book['datawydania']; ?></p>
+                                    <p><b>Gatunek: </b><?php echo $book['gatunek']; ?></p>
+                                    <p><b>Opis: </b><?php echo $book['opis']; ?></p>
 
 
                                         <button type="submit" class="btn btn-danger"><a class="text-white" href="<?php echo URL; ?>Books/acceptBook/<?php echo $book['id']; ?>">Zaakceptuj</a></button>
-                                        <button type="submit" class="btn btn-dark"><a class="text-white" href="#">Odrzuć</a></button>
+                                        <button type="submit" class="btn btn-dark"><a class="text-white" href="<?php echo URL; ?>Books/deleteBook/<?php echo $book['id']; ?>" OnClick="return confirm('Czy na pewno chcesz odrzucić tę propozycję?');">Odrzuć</a></button>
                                 </div>
 
                                 <!-- Modal footer -->

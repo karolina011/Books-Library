@@ -106,8 +106,8 @@
                 <?php if (Session::get('user')['rola'] == 'admin'): ?>
 
                     <div class="col-1">
-                        <a href="#">Edytuj</a>
-<!--                        <a href="--><?php //echo URL; ?><!--Authors/authorDelete/--><?php //echo $book['id'] ?><!--" OnClick="return confirm('Czy na pewno chcesz usunąć tę książkę?');">Usuń</a>-->
+<!--                        <a href="--><?php //echo URL; ?><!--Books/editBook/--><?php //echo $book['id'] ?><!--">Edytuj</a>-->
+                        <a href="<?php echo URL; ?>Books/deleteBook/<?php echo $book['id'] ?>" OnClick="return confirm('Czy na pewno chcesz usunąć tę książkę?');">Usuń</a>
                     </div>
 
                 <?php endif; ?>
@@ -135,18 +135,19 @@
                                 </div>
 
                                 <div class="col-lg-9 text-center">
-                                    <h1><?php echo $book['tytul'] ?></h1>
+                                    <p><b>Autor:</b> <?php echo $book['autor'] ?></p>
+                                    <p><b>Rok wydania:</b> <?php echo $book['datawydania'] ?></p>
+                                    <p><b>Gatunek:</b> <?php echo $book['gatunek'] ?></p>
                                     <hr/>
                                     <p>OCENA: <?php echo $book['ocena'] ?></p>
                                     <p class="response"></p>
                                     <br>
                                     <h4>A Ty jak oceniasz tę książkę?</h4>
                                     <div class="col-md-3 offset-4" >
-                                        <!--                                            <form action="--><?php //echo URL; ?><!--Authors/authorGradeAdd/--><?php //echo $author['id'] ?><!--" method="post">-->
 
                                         <input  type="number" min="1" max="10" class="form-control mb-2 mr-sm-2" name="grade" value="">
                                         <button type="submit" class="btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
-                                        <!--                                            </form>-->
+
                                     </div>
                                     <hr/>
                                 </div>

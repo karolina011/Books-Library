@@ -15,7 +15,7 @@ class Index_Model extends Model
 
     public function authors()
     {
-        $query = $this->db->query('SELECT * FROM autorzy LIMIT 5 ');
+        $query = $this->db->query('SELECT a.* FROM autorzy as a, authorsgrade as g WHERE a.id=g.authorID GROUP BY authorID ORDER BY ROUND(AVG(g.grade), 1) DESC LIMIT 5 ');
 
         $sth = $query->fetchAll(PDO::FETCH_ASSOC);
 

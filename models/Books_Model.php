@@ -17,7 +17,7 @@ class Books_Model extends Model
 
     public function filterBooks($data)
     {
-        $prepare = 'SELECT  k.* FROM ksiazki as k , booksgrade as b  ';
+        $prepare = 'SELECT  k.* FROM ksiazki as k LEFT JOIN booksgrade as b ON k.id = b.bookID ';
 
         $filters = [];
         $binds = [];
@@ -68,11 +68,11 @@ class Books_Model extends Model
         if (!empty($filters)) {
 
             $filtersAsString = " " . implode(" AND ", $filters);
-            $prepare .= ' WHERE k.id = b.bookID AND ' . $filtersAsString . ' GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)> :noteMin AND ROUND(AVG(b.grade),1)< :noteMax ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
+            $prepare .= ' WHERE  k.accept=1 AND ' . $filtersAsString . ' GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)> :noteMin AND ROUND(AVG(b.grade),1)< :noteMax ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
         }
         else
         {
-            $prepare .= ' WHERE k.id = b.bookID GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)>= :noteMin AND ROUND(AVG(b.grade),1)<= :noteMax ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
+            $prepare .= ' WHERE k.accept=1 GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)>= :noteMin AND ROUND(AVG(b.grade),1)<= :noteMax ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
         }
 
         $query = $this->db->prepare($prepare);
@@ -163,24 +163,59 @@ class Books_Model extends Model
 
     public function sendBook($data, $userID)
     {
-        $query = $this->db->prepare('INSERT INTO newbooks VALUES (null, :userID, :author, :title, :year, :type, :description) ');
+        try{
+        $query = $this->db->prepare('INSERT INTO ksiazki VALUES (null, :title, :autor, :year, :type, :description, :image, :accept) ');
         $query->execute(array(
-            ':userID' => $userID,
-            ':author' => $data['author'],
             ':title' => $data['title'],
+            ':autor' => $data['author'],
             ':year' => $data['year'],
             ':type' => $data['type'],
             ':description' => $data['description'],
+            ':image' => "",
+            ':accept' => 0
         ));
+        return true;
+        }
+        catch (Exception $exception) {
+            return false;
+        }
     }
 
     public function getBooks()
     {
-        $query = $this->db->query('SELECT * FROM newbooks ');
+        $query = $this->db->query('SELECT * FROM ksiazki WHERE accept = 0');
 
         $sth = $query->fetchAll(PDO::FETCH_ASSOC);
 
         return $sth ?? false;
     }
+
+    public function acceptBook($id)
+    {
+        $query = $this->db->prepare('UPDATE ksiazki SET accept = 1 WHERE id = :id');
+        $query->execute(array(
+           ':id' => $id
+        ));
+    }
+
+    public function deleteBook($id)
+    {
+        $query = $this->db->prepare('DELETE FROM ksiazki WHERE id = :id');
+        $query->execute(array(
+            ':id' => $id
+        ));
+    }
+
+//    public function editBook($id)
+//    {
+//        $query = $this->db->prepare('SELECT * FROM ksiazki WHERE id = :id');
+//        $query->execute(array(
+//            ':id' => $id
+//        ));
+//
+//        $sth = $query->fetchAll();
+//
+//        return $sth ?? false;
+//    }
 
 }

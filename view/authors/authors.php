@@ -77,19 +77,6 @@
 
                                 </div><br>
 
-<!--                                <script>-->
-<!--                                    $(document).ready(function(){-->
-<!--                                        $("#slide").click(function(){-->
-<!--                                            $("#opis").slideToggle("slow");-->
-<!--                                        });-->
-<!--                                    });-->
-<!--                                </script>-->
-<!---->
-<!--                                <button id="slide">Pokaż opis</button>-->
-<!--                                <div id="opis">--><?php //echo $author['opis'] ?><!--</div>-->
-
-<!--                                <button data-toggle="collapse" data-target="#slide--><?php //echo $author['id'] ?><!--" >Pokaż opis</button>-->
-<!--                                <div id="slide--><?php //echo $author['id'] ?><!--" class="collapse">--><?php //echo $author['opis'] ?><!--</div>-->
 
                                 <button class="showDesc">Pokaż opis</button>
                                 <div class="showDesc" style="display: none;"><?php echo $author['opis'] ?></div>

@@ -29,14 +29,13 @@
 
                     </div>
 
-                    <div id="myModal<?php echo $book['id'] ?>" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
+                    <div id="myModal<?php echo $book['id'] ?>" data-type="book" data-id="<?php echo $book['id'] ?>" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg">
 
                             <div class="modal-content">
 
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Modal Header</h4>
                                 </div>
 
                                 <div class="modal-body">
@@ -51,16 +50,21 @@
                                             <p>Gatunek: <?php echo $book['gatunek'] ?></p>
                                             <hr/>
                                             <p>OCENA: <?php echo $book['ocena'] ?></p>
+                                            <p class="response"></p>
+                                            <h4>A Ty jak oceniasz tę książkę?</h4>
+                                            <div class="col-md-3 offset-4" >
+
+                                                <input  type="number" min="1" max="10" class="form-control mb-2 mr-sm-2" name="grade" value="">
+                                                <button type="submit" class="btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
+
+                                            </div>
+                                            <hr/>
                                         </div>
                                     </div>
 
-                                    <div>
+                                    <button class="showDesc">Pokaż opis</button>
+                                    <div class="showDesc" style="display: none;"><?php echo $book['opis'] ?></div>
 
-                                        <br>
-
-                                        <p><?php echo $book['opis'] ?></p>
-
-                                    </div>
 
                                 </div>
 
@@ -96,14 +100,13 @@
 
                     </div>
 
-                    <div id="Modal<?php echo $author['id']?>" class="modal fade" role="dialog">
-                        <div class="modal-dialog">
+                    <div id="Modal<?php echo $author['id']?>" data-type="author" data-id="<?php echo $author['id'] ?>" class="modal fade" role="dialog">
+                        <div class="modal-dialog modal-lg">
 
                             <div class="modal-content">
 
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                    <h4 class="modal-title">Modal Header</h4>
                                 </div>
 
                                 <div class="modal-body">
@@ -116,15 +119,22 @@
                                             <h1><?php echo $author['autor'] ?></h1>
                                             <hr/>
                                             <p>OCENA: <?php echo $author['ocena'] ?></p>
+                                            <p class="response"></p>
+                                            <h4>A Ty jak oceniasz tego autora?</h4>
+                                            <div class="col-md-3 offset-4" >
+
+                                                <input  type="number" min="1" max="10" id="author" class="form-control mb-2 mr-sm-2" name="grade" value="">
+                                                <button type="submit" class="btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
+
+                                            </div>
+                                            <hr/>
                                         </div>
                                     </div>
 
                                     <div>
 
-                                        <br>
-
-                                        <p><?php echo $author['opis'] ?></p>
-
+                                        <button class="showDesc">Pokaż opis</button>
+                                        <div class="showDesc" style="display: none;"><?php echo $author['opis'] ?></div>
                                     </div>
 
                                 </div>

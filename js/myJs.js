@@ -33,7 +33,7 @@ $(document).on('click', '.addGrade', function () {
    var type = div.data('type');
 
 
-   var baseUrl = window.location.origin + "/ksiazki/";
+   var baseUrl = window.location.origin + "/Books-Library/";
 
    if (type == 'author')
    {
@@ -47,6 +47,7 @@ $(document).on('click', '.addGrade', function () {
    url = baseUrl + url;
    // alert(url);
    // die;
+
 
    $.post({
       url: url,
@@ -62,4 +63,5 @@ $(document).on('click', '.addGrade', function () {
       dataType: "JSON"
    });
 });
+
 
