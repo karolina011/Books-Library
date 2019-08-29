@@ -4,6 +4,6 @@ class Err
 {
     public function __construct()
     {
-        echo "Cosi nie tak";
+        echo "Coś nie tak";
     }
 }

@@ -28,7 +28,6 @@ class Authors extends Controller
             return;
         }
         $this->model->delete($id);
-        header("Location: " . URL . "Authors");
     }
 
     public function authorGradeAdd($id)

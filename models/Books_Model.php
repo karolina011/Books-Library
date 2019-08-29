@@ -200,10 +200,16 @@ class Books_Model extends Model
 
     public function deleteBook($id)
     {
-        $query = $this->db->prepare('DELETE FROM ksiazki WHERE id = :id');
-        $query->execute(array(
-            ':id' => $id
-        ));
+        try {
+            $query = $this->db->prepare('DELETE FROM ksiazki WHERE id = :id');
+            $query->execute(array(
+                ':id' => $id
+            ));
+            return true;
+        }
+        catch (Exception $exception) {
+            return false;
+        }
     }
 
 //    public function editBook($id)

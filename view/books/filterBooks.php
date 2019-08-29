@@ -83,40 +83,61 @@
 
     <div class="my-5">
 
+        <div class="col-10 offset-1">
+        <table class="table table-bordered ">
+
+            <thead class="thead-dark">
+            <tr>
+                <th width="10%"></th>
+                <th>Tytuł</th>
+                <th>Ocena</th>
+                <?php if (Session::get('user')['rola'] == 'admin'): ?>
+                     <th> </th>
+                <?php endif; ?>
+            </tr>
+            </thead>
+
+            <tbody>
+
         <?php foreach ($this->filterBooks as $key => $book):?>
 
-            <div class="row col-lg-8 col-sm-10 offset-lg-2 offset-sm-1">
-                <div class="col-1 rounded">
+        <tr>
+            <td >
+
                     <figure>
                         <a data-toggle="modal" data-target="#myModal<?php echo $book['id'] ?>" href="#"><img src="<?php echo URL;?>img/<?php echo $book['image'] ?>" alt="<?php echo $book['tytul'] ?>"
                                                                                                              class="img-fluid"></a>
                     </figure>
-                </div>
 
+            </td>
+            <td>
                 <div class="col-8 text-left">
                     <h4><?php echo $book['tytul'] ?></h4>
                 </div>
-
+            </td>
+            <td>
                 <div>
 
                     <p>Ocena: <?php echo $book['ocena'] ?></p>
 
                 </div>
-
+            </td>
                 <?php if (Session::get('user')['rola'] == 'admin'): ?>
-
-                    <div class="col-1">
-<!--                        <a href="--><?php //echo URL; ?><!--Books/editBook/--><?php //echo $book['id'] ?><!--">Edytuj</a>-->
-                        <a href="<?php echo URL; ?>Books/deleteBook/<?php echo $book['id'] ?>" OnClick="return confirm('Czy na pewno chcesz usunąć tę książkę?');">Usuń</a>
-                    </div>
-
+                <td>
+                    <button class="btn btn-danger btn-xs btn-delete delete-url" data-id="book" value="<?php echo $book['id'] ?>" >Delete</button>
+<!--                    <div class="col-1" >-->
+                        <a href="<?php echo URL; ?>Books/editBook/<?php echo $book['id'] ?>">Edytuj</a>
+<!--                        <a class="delete" data-id="--><?php //echo $book['id'] ?><!--" href="--><?php //echo URL; ?><!--Books/deleteBook/--><?php //echo $book['id'] ?><!--" OnClick="return confirm('Czy na pewno chcesz usunąć tę książkę?');">Usuń</a>-->
+<!--                    </div>-->
+                </td>
                 <?php endif; ?>
 
-            </div>
+        </tr>
 
 
 
-            <div id="myModal<?php echo $book['id'] ?>" data-type="book" data-id="<?php echo $book['id'] ?>" class="modal fade" role="dialog">
+
+            <div id="myModal<?php echo $book['id'] ?>" data-type="book" data-id="<?php echo $book['id'] ?>" class="text-secondary modal fade" role="dialog">
                 <div class="modal-dialog modal-lg modal-dialog-scrollable">
 
                     <div class="modal-content">
@@ -139,14 +160,15 @@
                                     <p><b>Rok wydania:</b> <?php echo $book['datawydania'] ?></p>
                                     <p><b>Gatunek:</b> <?php echo $book['gatunek'] ?></p>
                                     <hr/>
-                                    <p>OCENA: <?php echo $book['ocena'] ?></p>
-                                    <p class="response"></p>
-                                    <br>
-                                    <h4>A Ty jak oceniasz tę książkę?</h4>
-                                    <div class="col-md-3 offset-4" >
+                                    <h3><b>OCENA: <?php echo $book['ocena'] ?></b></h3>
 
-                                        <input  type="number" min="1" max="10" class="form-control mb-2 mr-sm-2" name="grade" value="">
-                                        <button type="submit" class="btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
+                                    <div class=  " col-md-8 offset-md-2 col-sm-10 offset-1 border rounded p-3 my-3 ">
+                                        <h4>A Ty jak oceniasz tę książkę?</h4>
+
+                                            <p class="response text-danger"></p>
+
+                                            <input  type="number" min="1" max="10" class="col-md-4 offset-md-4 form-control my-2  shadow" name="grade" value="">
+                                            <button type="submit" class="col-md-6 btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
 
                                     </div>
                                     <hr/>
@@ -170,6 +192,9 @@
             </div>
 
         <?php endforeach ?>
+            </tbody>
+        </table>
+        </div>
 
     </div>
 

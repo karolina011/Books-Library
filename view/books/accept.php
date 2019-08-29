@@ -23,7 +23,7 @@
                 <?php foreach ($this->getBooks as $key => $book): ?>
 
                     <tr>
-                        <td>Pozycja 1</td>
+                        <td>Pozycja <?php echo $key+1 ?></td>
                         <td><?php echo $book['autor']; ?></td>
                         <td><?php echo $book['tytul']; ?></td>
                         <td><button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal<?php echo $book['id']; ?>">Szczegóły</button></td>
@@ -35,7 +35,7 @@
 
                                 <!-- Modal Header -->
                                 <div class="modal-header">
-                                    <h4 class="modal-title">Pozycja 1</h4>
+                                    <h4 class="modal-title">Pozycja <?php echo $key+1 ?></h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
@@ -49,7 +49,8 @@
 
 
                                         <button type="submit" class="btn btn-danger"><a class="text-white" href="<?php echo URL; ?>Books/acceptBook/<?php echo $book['id']; ?>">Zaakceptuj</a></button>
-                                        <button type="submit" class="btn btn-dark"><a class="text-white" href="<?php echo URL; ?>Books/deleteBook/<?php echo $book['id']; ?>" OnClick="return confirm('Czy na pewno chcesz odrzucić tę propozycję?');">Odrzuć</a></button>
+                                        <button type="submit" class="btn btn-dark btn-xs btn-delete delete-url" value="<?php echo $book['id'] ?>">Odrzuć</a></button>
+<!--                                        <button type="submit" class="btn btn-dark"><a class="text-white" href="--><?php //echo URL; ?><!--Books/deleteBook/--><?php //echo $book['id']; ?><!--" >Odrzuć</a></button>-->
                                 </div>
 
                                 <!-- Modal footer -->

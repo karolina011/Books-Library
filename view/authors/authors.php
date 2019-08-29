@@ -7,36 +7,55 @@
             <h2 class="d-inline-block pt-5 pb-3 text-center">Spis autorów</h2>
             <hr/><br>
 
-            <?php foreach ($this->authorList as $key => $author): ?>
-                <div class="row col-lg-8 col-sm-10 offset-lg-2 offset-sm-1">
-                    <div class="col-1 rounded">
-                        <figure>
+            <div class="col-10 offset-1">
+            <table class="table table-bordered " >
+
+                <thead class="thead-dark">
+                <tr>
+                    <th width="10%">Img</th>
+                    <th>Tytuł</th>
+                    <th>Ocena</th>
+                    <?php if (Session::get('user')['rola'] == 'admin'): ?>
+                        <th> </th>
+                    <?php endif; ?>
+                </tr>
+                </thead>
+
+                <tbody>
+
+
+                <?php foreach ($this->authorList as $key => $author): ?>
+                <tr>
+                    <td>
+                        <figure >
 
                             <a data-toggle="modal" data-target="#myModal<?php echo $author['id'] ?>" href="#"><img src="img/<?php echo $author['image'] ?>" alt="<?php echo $author['autor'] ?>"
                                                                                                                  class="img-fluid"></a>
                         </figure>
-                    </div>
+                    </td>
 
-                    <div class="col-8 text-left">
-                        <h4><?php echo $author['autor'] ?></h4>
-                    </div>
+                    <td>
+                        <div class="col-8 text-left">
+                            <h4><?php echo $author['autor'] ?></h4>
+                        </div>
+                    </td>
+                    <td>
+                        <div>
 
-                    <div>
+                            <p>Ocena: <?php echo $author['ocena'] ?></p>
 
-                        <p>Ocena: <?php echo $author['ocena'] ?></p>
-
-                    </div>
+                        </div>
+                    </td>
 
                     <?php if (Session::get('user')['rola'] == 'admin'): ?>
-
-                        <div class="col-1">
-                            <a href="#">Edytuj</a>
-                            <a href="<?php echo URL; ?>Authors/authorDelete/<?php echo $author['id'] ?>" OnClick="return confirm('Czy na pewno chcesz usunąć tego autora?');">Usuń</a>
-                        </div>
-
+                    <td>
+                        <a href="#">Edytuj</a>
+                        <button data-id="author" class="btn btn-danger btn-xs btn-delete delete-url" value="<?php echo $author['id'] ?>" >Delete</button>
+<!--                            <a href="--><?php //echo URL; ?><!--Authors/authorDelete/--><?php //echo $author['id'] ?><!--" OnClick="return confirm('Czy na pewno chcesz usunąć tego autora?');">Usuń</a>-->
+                    </td>
                     <?php endif; ?>
 
-                </div>
+                </tr>
 
 
 
@@ -94,8 +113,12 @@
                 </div>
 
             <?php endforeach; ?>
+                </tbody>
+            </table>
+            </div>
 
         </div>
+
 
     </article>
 

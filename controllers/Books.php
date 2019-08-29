@@ -3,6 +3,10 @@
 
 class Books extends Controller
 {
+    /**
+     * @var Books_Model
+     */
+    protected $model;
 
     public function filterBooksView()
     {
@@ -144,19 +148,26 @@ class Books extends Controller
     public function acceptBook($bookID)
     {
         $this->model-> acceptBook($bookID);
+        header("Location: " . URL . "Books/acceptBookView");
+        exit();
     }
 
     public function deleteBook($bookID)
     {
-        $this->model-> deleteBook($bookID);
+        $result = $this->model-> deleteBook($bookID);
+        if ($result)
+        {
+            echo "usunieto";
+            die;
+        }
     }
 
-//    public function editBook($bookID)
-//    {
-//
-//        $this->view->render('books/edit');
-//
-//    }
+    public function editBook($bookID)
+    {
+
+        $this->view->render('books/edit');
+
+    }
 
 
 }
