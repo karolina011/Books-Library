@@ -16,7 +16,7 @@
                     <th>Tytuł</th>
                     <th>Ocena</th>
                     <?php if (Session::get('user')['rola'] == 'admin'): ?>
-                        <th> </th>
+                        <th width="10%"> </th>
                     <?php endif; ?>
                 </tr>
                 </thead>
@@ -49,8 +49,8 @@
 
                     <?php if (Session::get('user')['rola'] == 'admin'): ?>
                     <td>
-                        <a href="#">Edytuj</a>
-                        <button data-id="author" class="btn btn-danger btn-xs btn-delete delete-url" value="<?php echo $author['id'] ?>" >Delete</button>
+                        <button class="btn btn-danger btn-xs mb-1 "><a class="text-white" href="<?php echo URL; ?>Authors/editAuthor/<?php echo $author['id'] ?>">Edytuj</a></button>
+                        <button data-id="author" class="btn btn-dark btn-xs btn-delete delete-url" value="<?php echo $author['id'] ?>" >Delete</button>
 <!--                            <a href="--><?php //echo URL; ?><!--Authors/authorDelete/--><?php //echo $author['id'] ?><!--" OnClick="return confirm('Czy na pewno chcesz usunąć tego autora?');">Usuń</a>-->
                     </td>
                     <?php endif; ?>

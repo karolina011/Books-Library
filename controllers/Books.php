@@ -162,8 +162,28 @@ class Books extends Controller
         }
     }
 
-    public function editBook($bookID)
+    public function editBookView($bookID)
     {
+        if ($_POST)
+        {
+            $data = array();
+            $data['author'] = $_POST['author'];
+            $data['title'] = $_POST['title'];
+            $data['year'] = $_POST['year'];
+            $data['type'] = $_POST['type'];
+            $data['description'] = $_POST['description'];
+
+            $result = $this->model->editBook($bookID, $data);
+            if ($result)
+            {
+//                Session::set('editBookInfo', 'Zmiany zostały zapisane.');
+                header("Location: " . URL . "Books/filterBooksView");
+                die;
+            }
+        }
+
+        $result = $this->model-> getBookById($bookID);
+        $this->view->getBookById = $result;
 
         $this->view->render('books/edit');
 

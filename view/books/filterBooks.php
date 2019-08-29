@@ -124,9 +124,10 @@
             </td>
                 <?php if (Session::get('user')['rola'] == 'admin'): ?>
                 <td>
-                    <button class="btn btn-danger btn-xs btn-delete delete-url" data-id="book" value="<?php echo $book['id'] ?>" >Delete</button>
+                    <button class="btn btn-dark btn-xs btn-delete delete-url" data-id="book" value="<?php echo $book['id'] ?>" >Delete</button>
+                    <button class="btn btn-danger btn-xs "><a class="text-white" href="<?php echo URL; ?>Books/editBookView/<?php echo $book['id'] ?>">Edytuj</a></button>
 <!--                    <div class="col-1" >-->
-                        <a href="<?php echo URL; ?>Books/editBook/<?php echo $book['id'] ?>">Edytuj</a>
+<!--                        <a href="--><?php //echo URL; ?><!--Books/editBook/--><?php //echo $book['id'] ?><!--">Edytuj</a>-->
 <!--                        <a class="delete" data-id="--><?php //echo $book['id'] ?><!--" href="--><?php //echo URL; ?><!--Books/deleteBook/--><?php //echo $book['id'] ?><!--" OnClick="return confirm('Czy na pewno chcesz usunąć tę książkę?');">Usuń</a>-->
 <!--                    </div>-->
                 </td>

@@ -212,16 +212,36 @@ class Books_Model extends Model
         }
     }
 
-//    public function editBook($id)
-//    {
-//        $query = $this->db->prepare('SELECT * FROM ksiazki WHERE id = :id');
-//        $query->execute(array(
-//            ':id' => $id
-//        ));
-//
-//        $sth = $query->fetchAll();
-//
-//        return $sth ?? false;
-//    }
+    public function getBookById($id)
+    {
+        $query = $this->db->prepare('SELECT * FROM ksiazki WHERE id = :id');
+        $query->execute(array(
+            ':id' => $id
+        ));
 
+        $sth = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $sth ?? false;
+    }
+
+    public function editBook($id, $data)
+    {
+
+        try{
+            $query = $this->db->prepare('UPDATE ksiazki SET tytul = :title, autor = :author, datawydania = :year, gatunek = :type, opis = :description WHERE id = :id');
+            $query->execute(array(
+                ':title' => $data['title'],
+                ':author' => $data['author'],
+                ':year' => $data['year'],
+                ':type' => $data['type'],
+                ':description' => $data['description'],
+                ':id' => $id
+            ));
+            return true;
+        }
+        catch (Exception $exception) {
+            return false;
+        }
+
+    }
 }

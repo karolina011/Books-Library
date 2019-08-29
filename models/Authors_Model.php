@@ -60,4 +60,34 @@ class Authors_Model extends Model
 
         return $grade ?? false;
     }
+
+    public function getAuthorById($id)
+    {
+        $query = $this->db->prepare('SELECT * FROM autorzy WHERE id = :id');
+        $query->execute(array(
+            ':id' => $id
+        ));
+
+        $sth = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $sth ?? false;
+    }
+
+    public function editAuthor($id, $data)
+    {
+
+        try{
+            $query = $this->db->prepare('UPDATE autorzy SET autor = :author, opis = :description WHERE id = :id');
+            $query->execute(array(
+                ':author' => $data['author'],
+                ':description' => $data['description'],
+                ':id' => $id
+            ));
+            return true;
+        }
+        catch (Exception $exception) {
+            return false;
+        }
+
+    }
 }

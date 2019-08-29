@@ -61,4 +61,29 @@ class Authors extends Controller
 
         return "lalal";
     }
+
+    public function editAuthor($authorID)
+    {
+        if ($_POST)
+        {
+            $data = array();
+            $data['author'] = $_POST['author'];
+            $data['description'] = $_POST['description'];
+
+            $result = $this->model->editAuthor($authorID, $data);
+            if ($result)
+            {
+//                Session::set('editBookInfo', 'Zmiany zostały zapisane.');
+                header("Location: " . URL . "Authors");
+                die;
+            }
+        }
+
+        $result = $this->model-> getAuthorById($authorID);
+        $this->view->getAuthorById = $result;
+
+        $this->view->render('authors/edit');
+
+    }
+
 }
