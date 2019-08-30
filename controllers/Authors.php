@@ -3,18 +3,15 @@
 
 class Authors extends Controller
 {
+
+    /**
+     * @var Authors_Model
+     */
+    protected $model;
+
     public function index()
     {
         $result = $this->model->authorList();
-
-
-
-        foreach ($result as $key => &$author)
-        {
-            $grade = $this->model->findGrade($author['id']);
-            $author['ocena'] = $grade['grade'];
-        }
-
 
         $this->view->authorList = $result;
 
@@ -27,7 +24,11 @@ class Authors extends Controller
         if(!Session::get('user')) {
             return;
         }
-        $this->model->delete($id);
+        $result = $this->model->delete($id);
+        if ($result)
+        {
+            echo "usunieto";
+        }
     }
 
     public function authorGradeAdd($id)

@@ -40,11 +40,17 @@
 
                 <?php
 
-                for ($i = 1; $i <= 10; $i++) {
+                for ($i = 0; $i <= 10; $i++) {
 
-                    echo "<option> $i </option>";
+                    if ($i == 0)
+                    {
+                        echo "<option selected>-</option>";
+                    }
+                    else
+                    {
+                        echo "<option> $i </option>";
+                    }
                 }
-
                 ?>
 
             </select>
@@ -54,11 +60,11 @@
 
                 <?php
 
-                for ($i = 1; $i <= 10; $i++)
+                for ($i = 0; $i <= 10; $i++)
                 {
-                    if ($i==10)
+                    if ($i == 0)
                     {
-                        echo "<option selected='selected'> $i </option>";
+                        echo "<option selected>-</option>";
                     }
                     else
                     {
@@ -88,8 +94,7 @@
 
             <thead class="thead-dark">
             <tr>
-                <th width="10%"></th>
-                <th>Tytuł</th>
+                <th> </th>
                 <th>Ocena</th>
                 <?php if (Session::get('user')['rola'] == 'admin'): ?>
                      <th> </th>
@@ -101,19 +106,24 @@
 
         <?php foreach ($this->filterBooks as $key => $book):?>
 
+
         <tr>
             <td >
+                <a data-toggle="modal" data-target="#myModal<?php echo $book['id'] ?>" href="#">
+                    <div class="row">
+                        <div class="col-2">
+                            <img src="<?php echo URL;?>img/<?php echo $book['image'] ?>" alt="<?php echo $book['tytul'] ?>"
+                                                                                                             class="img-fluid">
+                        </div>
+                        <div class="text-dark text-decoration-none col-8 text-left">
+                            <h3 class=" font-weight-bold "><?php echo $book['tytul'] ?></h3>
+                            <p><b>Autor:</b> <?php echo $book['autor'] ?></p>
+                            <p><b>Rok wydania:</b> <?php echo $book['datawydania'] ?></p>
+                            <p><b>Gatunek:</b> <?php echo $book['gatunek'] ?></p>
+                        </div>
+                    </div>
+                </a>
 
-                    <figure>
-                        <a data-toggle="modal" data-target="#myModal<?php echo $book['id'] ?>" href="#"><img src="<?php echo URL;?>img/<?php echo $book['image'] ?>" alt="<?php echo $book['tytul'] ?>"
-                                                                                                             class="img-fluid"></a>
-                    </figure>
-
-            </td>
-            <td>
-                <div class="col-8 text-left">
-                    <h4><?php echo $book['tytul'] ?></h4>
-                </div>
             </td>
             <td>
                 <div>
@@ -138,32 +148,35 @@
 
 
 
-            <div id="myModal<?php echo $book['id'] ?>" data-type="book" data-id="<?php echo $book['id'] ?>" class="text-secondary modal fade" role="dialog">
+            <div id="myModal<?php echo $book['id'] ?>" data-type="book" data-id="<?php echo $book['id'] ?>" class="text-dark modal fade" role="dialog">
                 <div class="modal-dialog modal-lg modal-dialog-scrollable">
 
                     <div class="modal-content">
 
                         <div class="modal-header">
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            <h4 class="modal-title"></h4>
+                            <h4 class="modal-title"><?php echo $book['tytul'] ?></h4>
                         </div>
 
                         <div class="modal-body">
 
                             <div class="row">
 
-                                <div class="col-lg-3">
-                                    <img src="<?php echo URL;?>img/<?php echo $book['image'] ?>" alt="<?php echo $book['tytul'] ?>" class="img-fluid">
+                                <div class="col-lg-4">
+
+                                    <img  width="100%" src="<?php echo URL;?>img/<?php echo $book['image'] ?>" alt="<?php echo $book['tytul'] ?>" class="my-3 img-fluid">
+
                                 </div>
 
-                                <div class="col-lg-9 text-center">
+                                <div class="col-lg-8 text-center">
                                     <p><b>Autor:</b> <?php echo $book['autor'] ?></p>
                                     <p><b>Rok wydania:</b> <?php echo $book['datawydania'] ?></p>
                                     <p><b>Gatunek:</b> <?php echo $book['gatunek'] ?></p>
                                     <hr/>
                                     <h3><b>OCENA: <?php echo $book['ocena'] ?></b></h3>
+                                    <p>Liczba ocen: <?php echo $book['count'] ?> </p>
 
-                                    <div class=  " col-md-8 offset-md-2 col-sm-10 offset-1 border rounded p-3 my-3 ">
+                                    <div class=  "col-10 offset-1 border rounded p-3 my-3 shadow">
                                         <h4>A Ty jak oceniasz tę książkę?</h4>
 
                                             <p class="response text-danger"></p>

@@ -35,6 +35,7 @@
                             <div class="modal-content">
 
                                 <div class="modal-header">
+                                    <h4 class="modal-title"><?php echo $book['tytul'] ?></h4>
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                 </div>
 
@@ -45,17 +46,20 @@
                                             <img src="img/<?php echo $book['image'] ?>" alt="<?php echo $book['tytul'] ?>" class="img-fluid">
                                         </div>
                                         <div class="col-lg-8">
-                                            <p>Autor: <?php echo $book['autor'] ?></p>
-                                            <p>Rok wydania: <?php echo $book['datawydania'] ?></p>
-                                            <p>Gatunek: <?php echo $book['gatunek'] ?></p>
+                                            <<p><b>Autor:</b> <?php echo $book['autor'] ?></p>
+                                            <p><b>Rok wydania:</b> <?php echo $book['datawydania'] ?></p>
+                                            <p><b>Gatunek:</b> <?php echo $book['gatunek'] ?></p>
                                             <hr/>
-                                            <p>OCENA: <?php echo $book['ocena'] ?></p>
-                                            <p class="response"></p>
-                                            <h4>A Ty jak oceniasz tę książkę?</h4>
-                                            <div class="col-md-3 offset-4" >
+                                            <h3><b>OCENA: <?php echo $book['ocena'] ?></b></h3>
+                                            <p>Liczba ocen: <?php echo $book['count'] ?> </p>
 
-                                                <input  type="number" min="1" max="10" class="form-control mb-2 mr-sm-2" name="grade" value="">
-                                                <button type="submit" class="btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
+                                            <div class=  "col-10 offset-1 border rounded p-3 my-3 shadow">
+                                                <h4>A Ty jak oceniasz tę książkę?</h4>
+
+                                                <p class="response text-danger"></p>
+
+                                                <input  type="number" min="1" max="10" class="col-md-2 offset-md-5 form-control my-2  shadow" name="grade" value="">
+                                                <button type="submit" class="col-md-4 btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
 
                                             </div>
                                             <hr/>
@@ -116,15 +120,19 @@
                                             <img src="img/<?php echo $author['image'] ?>" alt="<?php echo $author['autor'] ?>" class="img-fluid">
                                         </div>
                                         <div class="col-lg-8">
-                                            <h1><?php echo $author['autor'] ?></h1>
+                                            <h1 class="font-weight-bold"><?php echo $author['autor'] ?></h1>
                                             <hr/>
-                                            <p>OCENA: <?php echo $author['ocena'] ?></p>
-                                            <p class="response"></p>
-                                            <h4>A Ty jak oceniasz tego autora?</h4>
-                                            <div class="col-md-3 offset-4" >
+                                            <h3><b>OCENA: <?php echo $author['ocena'] ?></b></h3>
+                                            <p>Liczba ocen: <?php echo $author['count'] ?></p>
+                                            <br>
+                                            <div class=  "col-10 offset-1 border rounded p-3 my-3 shadow">
+                                                <h4>A Ty jak oceniasz tego autora?</h4>
+                                                <p class="response text-danger"></p>
 
-                                                <input  type="number" min="1" max="10" id="author" class="form-control mb-2 mr-sm-2" name="grade" value="">
-                                                <button type="submit" class="btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
+
+                                                    <input  type="number" min="1" max="10" id="author" class="col-md-2 offset-md-5 form-control my-2  shadow" name="grade" value="">
+                                                    <button type="submit" class="col-md-4 btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
+
 
                                             </div>
                                             <hr/>

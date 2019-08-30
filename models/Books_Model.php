@@ -17,9 +17,10 @@ class Books_Model extends Model
 
     public function filterBooks($data)
     {
-        $prepare = 'SELECT  k.* FROM ksiazki as k LEFT JOIN booksgrade as b ON k.id = b.bookID ';
+        $prepare = 'SELECT  k.*, ROUND(AVG(b.grade), 1) as ocena, COUNT(b.id) as count FROM ksiazki as k LEFT JOIN booksgrade as b ON k.id = b.bookID ';
 
         $filters = [];
+        $fGrade = [];
         $binds = [];
 
         if ($data['author']) {
@@ -57,23 +58,47 @@ class Books_Model extends Model
 //
         }
 
-        if (($data['noteMin']) && ($data['noteMax'])) {
-//            $filters[] = "grade BETWEEN :noteMin AND :noteMax ";
+        if (($data['noteMin'] >=1) && ($data['noteMin'] <=10))
+        {
+            $fGrade[] = "ROUND(AVG(b.grade),1)>= :noteMin ";
 
             $binds[':noteMin'] = (int)$data['noteMin'];
+
+        }
+
+        if (($data['noteMax'] >=1) && ($data['noteMax'] <=10))
+        {
+            $fGrade[] = "ROUND(AVG(b.grade),1)<= :noteMax";
             $binds[':noteMax'] = (int)$data['noteMax'];
         }
 
 
-        if (!empty($filters)) {
+        if ((!empty($filters)) && (!empty($fGrade))) {
 
             $filtersAsString = " " . implode(" AND ", $filters);
-            $prepare .= ' WHERE  k.accept=1 AND ' . $filtersAsString . ' GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)> :noteMin AND ROUND(AVG(b.grade),1)< :noteMax ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
+            $filtersGrade = "' HAVING " . implode(' AND ', $fGrade) . "'";
+
+            $prepare .= ' WHERE  k.accept=1 AND ' . $filtersAsString . ' GROUP BY b.bookID '. $filtersGrade .' ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
+        }
+        else if ((!empty($fGrade)) && (empty($filters)) )
+        {
+            $filtersGrade = " HAVING " . implode(' AND ', $fGrade) ;
+
+            $prepare .= ' WHERE k.accept=1 GROUP BY b.bookID ' . $filtersGrade .' ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
+        }
+        else if ((!empty($filters)) && (empty($fGrade))) {
+
+            $filtersAsString = " " . implode(" AND ", $filters);
+
+            $prepare .= ' WHERE  k.accept=1 AND ' . $filtersAsString . ' GROUP BY b.bookID ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
         }
         else
         {
-            $prepare .= ' WHERE k.accept=1 GROUP BY b.bookID HAVING ROUND(AVG(b.grade),1)>= :noteMin AND ROUND(AVG(b.grade),1)<= :noteMax ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
+            $prepare .= ' WHERE k.accept=1 GROUP BY b.bookID ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
         }
+
+//        print_r($prepare);
+//        die;
 
         $query = $this->db->prepare($prepare);
 

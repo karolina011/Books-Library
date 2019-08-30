@@ -34,12 +34,6 @@ class Books extends Controller
 
         $result = $this->model->filterBooks($data);
 
-
-        foreach ($result as $key => &$book)
-        {
-            $grade = $this->model->findGrade($book['id']);
-            $book['ocena'] = $grade['grade'];
-        }
         $this->view-> filterBooks = $result;
 
     }

@@ -12,7 +12,7 @@
 
                 <thead class="thead-dark">
                 <tr>
-                    <th width="10%">Img</th>
+
                     <th>Tytuł</th>
                     <th>Ocena</th>
                     <?php if (Session::get('user')['rola'] == 'admin'): ?>
@@ -27,18 +27,22 @@
                 <?php foreach ($this->authorList as $key => $author): ?>
                 <tr>
                     <td>
-                        <figure >
 
-                            <a data-toggle="modal" data-target="#myModal<?php echo $author['id'] ?>" href="#"><img src="img/<?php echo $author['image'] ?>" alt="<?php echo $author['autor'] ?>"
-                                                                                                                 class="img-fluid"></a>
-                        </figure>
+                        <a data-toggle="modal" data-target="#myModal<?php echo $author['id'] ?>" href="#">
+
+                            <div class="row">
+                                <div class="col-1">
+                                    <img src="img/<?php echo $author['image'] ?>" alt="<?php echo $author['autor'] ?>" class="img-fluid">
+                                </div>
+
+                                <div class="text-dark text-decoration-none col-9 text-left">
+                                    <h4><?php echo $author['autor'] ?></h4>
+                                </div>
+                            </div>
+
+                        </a>
                     </td>
 
-                    <td>
-                        <div class="col-8 text-left">
-                            <h4><?php echo $author['autor'] ?></h4>
-                        </div>
-                    </td>
                     <td>
                         <div>
 
@@ -59,7 +63,7 @@
 
 
 
-                <div id="myModal<?php echo $author['id'] ?>" data-type="author" data-id="<?php echo $author['id'] ?>" class="modal fade" role="dialog">
+                <div id="myModal<?php echo $author['id'] ?>" data-type="author" data-id="<?php echo $author['id'] ?>" class="text-dark modal fade" role="dialog">
                     <div class="modal-dialog modal-lg">
 
                         <div class="modal-content">
@@ -78,18 +82,20 @@
                                     </div>
 
                                     <div class="col-lg-9">
-                                        <h1><?php echo $author['autor'] ?></h1>
+                                        <h1 class="font-weight-bold"><?php echo $author['autor'] ?></h1>
                                         <hr/>
-                                        <p>OCENA: <?php echo $author['ocena'] ?></p>
-                                        <p class="response"></p>
+                                        <h3><b>OCENA: <?php echo $author['ocena'] ?></b></h3>
+                                        <p>Liczba ocen: <?php echo $author['count'] ?></p>
                                         <br>
-                                        <h4>A Ty jak oceniasz tego autora?</h4>
-                                        <div class="col-md-3 offset-4" >
-<!--                                            <form action="--><?php //echo URL; ?><!--Authors/authorGradeAdd/--><?php //echo $author['id'] ?><!--" method="post">-->
+                                        <div class=  "col-10 offset-1 border rounded p-3 my-3 shadow">
+                                            <h4>A Ty jak oceniasz tego autora?</h4>
+                                            <p class="response text-danger"></p>
 
-                                            <input  type="number" min="1" max="10" id="author" class="form-control mb-2 mr-sm-2" name="grade" value="">
-                                                <button type="submit" class="btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
-<!--                                            </form>-->
+
+                                            <input  type="number" min="1" max="10" id="author" class="col-md-2 offset-md-5 form-control my-2  shadow" name="grade" value="">
+                                            <button type="submit" class="col-md-4 btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
+
+
                                         </div>
                                         <hr/>
                                     </div>

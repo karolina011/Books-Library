@@ -5,7 +5,7 @@ class Authors_Model extends Model
 {
     public function authorList()
     {
-        $query = $this->db->query('SELECT * FROM autorzy ORDER BY autor ASC ');
+        $query = $this->db->query('SELECT a.*, ROUND(AVG(g.grade), 1) as ocena, COUNT(g.id) as count FROM autorzy as a LEFT JOIN authorsgrade as g ON a.id = g.authorID GROUP BY g.authorID ORDER BY autor ASC ');
 
         $authors = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -14,10 +14,17 @@ class Authors_Model extends Model
 
     public function delete($id)
     {
-        $query = $this->db->prepare('DELETE FROM autorzy WHERE id = :id');
-        $query->execute(array(
-            ':id' => $id
-        ));
+        try{
+            $query = $this->db->prepare('DELETE FROM autorzy WHERE id = :id');
+            $query->execute(array(
+                ':id' => $id
+            ));
+            return true;
+        }
+        catch (Exception $exception) {
+            return false;
+        }
+
     }
 
     public function isUserRate($authorID, $userId)
@@ -49,17 +56,6 @@ class Authors_Model extends Model
 
     }
 
-    public function findGrade($id)
-    {
-        $query = $this->db->prepare('SELECT ROUND(AVG(grade), 1) as grade, COUNT(id) as count FROM authorsgrade WHERE authorID = :authorID');
-        $query->execute(array(
-            ':authorID' => $id
-        ));
-
-        $grade = $query->fetch(PDO::FETCH_ASSOC);
-
-        return $grade ?? false;
-    }
 
     public function getAuthorById($id)
     {
