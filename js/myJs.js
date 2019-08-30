@@ -6,27 +6,6 @@ $(document).on('click', 'button[class="showDesc"]', function () {
 
 $(document).on('click', '.addGrade', function () {
 
-   //
-   // var div = $(this).parents('.modal:first');
-   // var authorid = div.data('authorid');
-   // var grade = div.find('input[name="authorGrade"]').val();
-   //
-   // var url = "Authors/authorGradeAdd/" + authorid;
-   //
-   // $.post({
-   //    url: url,
-   //    data: {grade: grade},
-   //    success: function (data) {
-   //       alert("succes");
-   //    },
-   //    error: function (data) {
-   //       console.log(data);
-   //       div.find('.response').text(data.responseText);
-   //
-   //    },
-   //    dataType: "JSON"
-
-
    var div = $(this).parents('.modal:first');
    var id = div.data('id');
    var grade = div.find('input[name="grade"]').val();
@@ -70,53 +49,6 @@ $(document).on('click', '.addGrade', function () {
    });
 });
 
-// $(document).on('click', '.delete', function () {
-//
-//
-//    var div = $(this).parents('div[id="delete"]');
-//    var id = div.data('id');
-//    var grade = div.find('input[name="grade"]').val();
-//    var type = div.data('type');
-//
-//
-//    if ((grade<1) || (grade>10))
-//    {
-//       div.find('.response').text("Ocena powinna mieścić się w przedziale 1-10");
-//       return;
-//    }
-//
-//    var baseUrl = window.location.origin + "/Books-Library/";
-//
-//    if (type == 'author')
-//    {
-//       var url = "Authors/authorGradeAdd/" + id;
-//    }
-//    else if (type == 'book')
-//    {
-//       var url = "Books/bookGradeAdd/" + id;
-//    }
-//
-//    url = baseUrl + url;
-//    // alert(url);
-//    // die;
-//
-//
-//    $.post({
-//       url: url,
-//       data: {grade: grade},
-//       success: function (data) {
-//          alert("succes");
-//       },
-//       error: function (data) {
-//          console.log(data);
-//          div.find('.response').text(data.responseText);
-//
-//       },
-//       dataType: "JSON"
-//    });
-// });
-
-
 
 $(document).on('click', '.delete-url', function () {
 
@@ -133,6 +65,10 @@ $(document).on('click', '.delete-url', function () {
       else if (type == 'book')
       {
          var url = 'Books/deleteBook/'
+      }
+      else if (type == 'bookUserDelete')
+      {
+         var url = 'User/deleteBook/'
       }
 
       url = window.location.origin + "/Books-Library/" + url + url_id;
@@ -155,4 +91,41 @@ $(document).on('click', '.delete-url', function () {
          dataType: "JSON"
       });
    }
+});
+
+$(document).on('click', '.read', function () {
+
+   var div = $(this).parents('.modal:first');
+   var id = div.data('id');
+   var type = $(this).data('id');
+
+   var baseUrl = window.location.origin + "/Books-Library/";
+
+   if (type == 'toRead')
+   {
+      var read = 0;
+      var url = "User/books/" + id;
+   }
+   else if (type == 'read')
+   {
+      var read = 1;
+      var url = "User/books/" + id;
+   }
+
+   url = baseUrl + url;
+   // alert(url);
+
+   $.post({
+      url: url,
+      data: {read: read},
+      success: function (data) {
+         alert("succes");
+      },
+      error: function (data) {
+         console.log(data);
+         div.find('.response1').text(data.responseText);
+
+      },
+      dataType: "JSON"
+   });
 });

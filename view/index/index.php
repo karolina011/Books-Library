@@ -66,8 +66,20 @@
                                         </div>
                                     </div>
 
-                                    <button class="showDesc">Pokaż opis</button>
-                                    <div class="showDesc" style="display: none;"><?php echo $book['opis'] ?></div>
+                                    <div>
+
+                                        <?php if (Session::get('user')) :?>
+                                            <p class="response1 text-secondary"></p>
+                                            <div class="row mb-3">
+                                                <button type="submit" data-id="toRead" class="col-md-3 mr-2 offset-3 btn btn-light read"><i class="fas fa-book"></i> Chcę przeczytać</button>
+                                                <button type="submit" data-id="read" class="col-md-3 btn btn-light read"><i class="fas fa-star"></i> Przeczytane</button>
+                                            </div>
+                                        <?php endif; ?>
+
+                                        <button class="showDesc">Pokaż opis</button>
+                                        <div class="showDesc" style="display: none;"><?php echo $book['opis'] ?></div>
+
+                                    </div>
 
 
                                 </div>

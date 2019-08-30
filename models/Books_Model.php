@@ -167,7 +167,7 @@ class Books_Model extends Model
             ));
             return true;
         }
-        catch (\Exception $exception)
+        catch (Exception $exception)
         {
             return false;
         }

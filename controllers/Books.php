@@ -99,11 +99,6 @@ class Books extends Controller
 
     }
 
-    public function myBooks()
-    {
-        $this->view->render('books/mybooks');
-    }
-
     public function bookGradeAdd($id)
     {
         $grade = $_POST['grade'];

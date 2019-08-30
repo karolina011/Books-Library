@@ -24,6 +24,7 @@
     <script type="text/javascript" src="<?php echo URL;?>js/custom.js"></script>
     <script src="<?php echo URL;?>js/myJs.js"></script>
     <script src="<?php echo URL;?>js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
 
     <script type="text/javascript">
 
@@ -165,7 +166,7 @@
                 <div class="dropdown-menu" aria-labelledby="submenu">
 
                     <?php if (Session::get('user')['rola'] == 'user') :?>
-                        <a class="dropdown-item" href="<?php echo URL; ?>Books/myBooks">Moje ksiazki</a>
+                        <a class="dropdown-item" href="<?php echo URL; ?>User/showUserBooks">Moje ksiazki</a>
                         <a class="dropdown-item" href="<?php echo URL; ?>Books/addBookView">Zaproponuj książkę</a>
                         <a class="dropdown-item" href="#">podlink 3</a>
                     <?php endif; ?>
