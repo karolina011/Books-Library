@@ -26,7 +26,7 @@ class Index_Model extends Model
 
     public function fetchComments($bookID)
     {
-        $query = $this->db->prepare('SELECT * FROM comments as c INNER JOIN users as u INNER JOIN ksiazki as k ON c.userID = u.id AND c.bookID = k.id WHERE c.bookID = :bookID  ORDER BY c.id DESC');
+        $query = $this->db->prepare('SELECT * FROM comments as c INNER JOIN users as u  ON c.userID = u.id  WHERE c.bookID = :bookID  ORDER BY c.id DESC');
         $query->execute(array(
             ':bookID' => $bookID
         ));

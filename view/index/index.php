@@ -18,6 +18,7 @@
 
 
                 <?php foreach ($this->books as $key => $book): ?>
+
                     <div class="opacity col-lg-2 col-md-4 col-s-10 <?php if ($key == 0): ?>offset-lg-1<?php endif; ?> rounded">
                         <figure>
 
@@ -93,27 +94,51 @@
                                             </form>
                                             <p class="commentMessage"></p>
                                             <br/>
-    <!--                                        <div id="displayComment"></div>-->
-                                            <div id="commentsList">
-                                        </div>
+                                            <div id="displayComment"></div>
+                                            <div id="commentsList"></div>
 
-                                        </div>
+                                                <div class="card col-lg-10 offset-lg-1 py-2">
 
+                                                    <?php foreach ($book['comments'] as $key2 => $comment ): ?>
+
+                                                        <div class="card-header bg-danger mt-3">
+                                                            <div class="row">
+                                                                <div class="text-left col-5 pl-3"><b><?php echo $comment['login']?></b></div>
+                                                                <div class="col-7 text-right"><?php echo $comment['data']?></div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="card-body bg-light p-3">
+                                                            <div><?php echo $comment['comment']?></div>
+                                                        </div>
+                                                        <div class="card-footer bg-light">
+                                                            <div class="row" data-id="<?php echo $comment['id']?>">
+                                                                <div class="like text-secondary float-right mx-2 mb-0 p-2"><i class="fas fa-thumbs-up"></i>Like</div>
+                                                                <div class="unlike text-danger float-right mx-2 mb-0 p-2"><i class="fas fa-thumbs-down"></i>Unike</div>
+                                                                <button type="button" class="btn btn-secondary reply py-0 px-2">Odpowiedz</button>
+                                                            </div>
+                                                        </div>
+
+                                                    <?php endforeach; ?>
+
+                                            </div>
 
                                     </div>
 
 
                                 </div>
 
+
+                            </div>
+
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close
                                     </button>
                                 </div>
 
-                            </div>
                         </div>
-
                     </div>
+
+            </div>
 
                 <?php endforeach; ?>
 
