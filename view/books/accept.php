@@ -49,8 +49,8 @@
 
 
                                         <button type="submit" class="btn btn-danger"><a class="text-white" href="<?php echo URL; ?>Books/acceptBook/<?php echo $book['id']; ?>">Zaakceptuj</a></button>
-                                        <button type="submit" class="btn btn-dark btn-xs btn-delete delete-url" value="<?php echo $book['id'] ?>">Odrzuć</a></button>
-<!--                                        <button type="submit" class="btn btn-dark"><a class="text-white" href="--><?php //echo URL; ?><!--Books/deleteBook/--><?php //echo $book['id']; ?><!--" >Odrzuć</a></button>-->
+                                        <button type="submit" class="btn btn-dark btn-xs btn-delete deleteBook" value="<?php echo $book['id'] ?>">Odrzuć</a></button>
+
                                 </div>
 
                                 <!-- Modal footer -->

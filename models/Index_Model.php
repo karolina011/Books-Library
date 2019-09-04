@@ -9,6 +9,7 @@ class Index_Model extends Model
 
         $sth = $query->fetchAll(PDO::FETCH_ASSOC);
 
+
         return $sth ?? false;
 
     }
@@ -22,5 +23,29 @@ class Index_Model extends Model
         return $sth ?? false;
 
     }
+
+    public function fetchComments($bookID)
+    {
+        $query = $this->db->prepare('SELECT * FROM comments as c INNER JOIN users as u INNER JOIN ksiazki as k ON c.userID = u.id AND c.bookID = k.id WHERE c.bookID = :bookID  ORDER BY c.id DESC');
+        $query->execute(array(
+            ':bookID' => $bookID
+        ));
+
+        $sth = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $sth ?? false;
+    }
+
+//    public function fetchComments($bookID)
+//    {
+//        $query = $this->db->prepare('SELECT * FROM comments as c INNER JOIN users as u INNER JOIN ksiazki as k ON c.userID = u.id AND c.bookID = k.id WHERE c.bookID = :bookID  ORDER BY c.id DESC');
+//        $query->execute(array(
+//            ':bookID' => $bookID
+//        ));
+//
+//        $sth = $query->fetchAll(PDO::FETCH_ASSOC);
+//
+//        return $sth ?? false;
+//    }
 
 }

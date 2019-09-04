@@ -25,7 +25,7 @@
 
 
                 <?php foreach ($this->authorList as $key => $author): ?>
-                <tr>
+                <tr class="tr">
                     <td>
 
                         <a data-toggle="modal" data-target="#myModal<?php echo $author['id'] ?>" href="#">
@@ -54,7 +54,7 @@
                     <?php if (Session::get('user')['rola'] == 'admin'): ?>
                     <td>
                         <button class="btn btn-danger btn-xs mb-1 "><a class="text-white" href="<?php echo URL; ?>Authors/editAuthor/<?php echo $author['id'] ?>">Edytuj</a></button>
-                        <button data-id="author" class="btn btn-dark btn-xs btn-delete delete-url" value="<?php echo $author['id'] ?>" >Delete</button>
+                        <button class="btn btn-dark btn-xs btn-delete deleteAuthor" value="<?php echo $author['id'] ?>" >Delete</button>
 <!--                            <a href="--><?php //echo URL; ?><!--Authors/authorDelete/--><?php //echo $author['id'] ?><!--" OnClick="return confirm('Czy na pewno chcesz usunąć tego autora?');">Usuń</a>-->
                     </td>
                     <?php endif; ?>
@@ -93,7 +93,7 @@
 
 
                                             <input  type="number" min="1" max="10" id="author" class="col-md-2 offset-md-5 form-control my-2  shadow" name="grade" value="">
-                                            <button type="submit" class="col-md-4 btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
+                                            <button type="submit" class="col-md-4 btn btn-danger mb-2 addAuthorGrade">Dodaj ocenę</button>
 
 
                                         </div>

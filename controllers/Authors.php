@@ -33,7 +33,7 @@ class Authors extends Controller
 
     public function authorGradeAdd($id)
     {
-        $grade = $_POST['grade'];
+        $grade = $_POST['data'];
 
         if (!(Session::get('loggedIn')))
         {

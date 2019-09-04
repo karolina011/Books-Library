@@ -31,6 +31,7 @@ class Books extends Controller
         $data['type'] = $_POST['type'];
         $data['noteMin'] = $_POST['noteMin'];
         $data['noteMax'] = $_POST['noteMax'];
+        $data['sort'] = $_POST['sort'];
 
         $result = $this->model->filterBooks($data);
 
@@ -101,7 +102,7 @@ class Books extends Controller
 
     public function bookGradeAdd($id)
     {
-        $grade = $_POST['grade'];
+        $grade = $_POST['data'];
 
         if (!(Session::get('loggedIn')))
         {

@@ -72,29 +72,50 @@ class Books_Model extends Model
             $binds[':noteMax'] = (int)$data['noteMax'];
         }
 
+        if ($data['sort'] == 'Oceny (od najwyższej)')
+        {
+            $sort = " ROUND(AVG(b.grade), 1) DESC";
+        }
+        elseif ($data['sort'] == 'Oceny (od najniższej)')
+        {
+            $sort = " ROUND(AVG(b.grade), 1) ASC";
+        }
+        elseif ($data['sort'] == 'Alfabetu')
+        {
+            $sort = " tytul ASC";
+        }
+        elseif ($data['sort'] == 'Daty wydania (od najstarszej)')
+        {
+            $sort = " datawydania ASC";
+        }
+        elseif ($data['sort'] == 'Daty wydania (od najnowszej)')
+        {
+            $sort = " datawydania DESC";
+        }
+
 
         if ((!empty($filters)) && (!empty($fGrade))) {
 
             $filtersAsString = " " . implode(" AND ", $filters);
-            $filtersGrade = "' HAVING " . implode(' AND ', $fGrade) . "'";
+            $filtersGrade = " HAVING " . implode(' AND ', $fGrade) ;
 
-            $prepare .= ' WHERE  k.accept=1 AND ' . $filtersAsString . ' GROUP BY b.bookID '. $filtersGrade .' ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
+            $prepare .= ' WHERE  k.accept=1 AND ' . $filtersAsString . ' GROUP BY b.bookID '. $filtersGrade . ' ORDER BY ' . $sort ;
         }
         else if ((!empty($fGrade)) && (empty($filters)) )
         {
             $filtersGrade = " HAVING " . implode(' AND ', $fGrade) ;
 
-            $prepare .= ' WHERE k.accept=1 GROUP BY b.bookID ' . $filtersGrade .' ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
+            $prepare .= ' WHERE k.accept=1 GROUP BY b.bookID ' . $filtersGrade . ' ORDER BY ' . $sort  ;
         }
         else if ((!empty($filters)) && (empty($fGrade))) {
 
             $filtersAsString = " " . implode(" AND ", $filters);
 
-            $prepare .= ' WHERE  k.accept=1 AND ' . $filtersAsString . ' GROUP BY b.bookID ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
+            $prepare .= ' WHERE  k.accept=1 AND ' . $filtersAsString . ' GROUP BY b.bookID  ORDER BY ' . $sort  ;
         }
         else
         {
-            $prepare .= ' WHERE k.accept=1 GROUP BY b.bookID ORDER BY ROUND(AVG(b.grade), 1) DESC' ;
+            $prepare .= ' WHERE k.accept=1 GROUP BY b.bookID ORDER BY ' . $sort  ;
         }
 
 //        print_r($prepare);

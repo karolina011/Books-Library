@@ -3,7 +3,7 @@
 <main>
 
 
-    <div class="container-fluid">
+    <div class="container-fluid pb-5">
 
         <article class="frst">
 
@@ -14,11 +14,11 @@
             <h2 class="d-inline-block pt-5 pb-3 ">Najwyżej oceniane</h2>
 
 
-            <div class="row">
+            <div class="row shadow">
 
 
                 <?php foreach ($this->books as $key => $book): ?>
-                    <div class="col-lg-2 col-md-4 col-s-10 <?php if ($key == 0): ?>offset-lg-1<?php endif; ?> rounded">
+                    <div class="opacity col-lg-2 col-md-4 col-s-10 <?php if ($key == 0): ?>offset-lg-1<?php endif; ?> rounded">
                         <figure>
 
                             <a data-toggle="modal" data-target="#myModal<?php echo $book['id'] ?>" href="#"><img src="img/<?php echo $book['image'] ?>" alt="<?php echo $book['tytul'] ?>"
@@ -58,8 +58,8 @@
 
                                                 <p class="response text-danger"></p>
 
-                                                <input  type="number" min="1" max="10" class="col-md-2 offset-md-5 form-control my-2  shadow" name="grade" value="">
-                                                <button type="submit" class="col-md-4 btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
+                                                <input  type="number" min="1" max="10" class="col-md-2 offset-md-5 col-6 offset-3 form-control my-2  shadow" name="grade" value="">
+                                                <button type="submit" class="col-md-4 btn btn-danger mb-2 addBookGrade">Dodaj ocenę</button>
 
                                             </div>
                                             <hr/>
@@ -71,13 +71,34 @@
                                         <?php if (Session::get('user')) :?>
                                             <p class="response1 text-secondary"></p>
                                             <div class="row mb-3">
-                                                <button type="submit" data-id="toRead" class="col-md-3 mr-2 offset-3 btn btn-light read"><i class="fas fa-book"></i> Chcę przeczytać</button>
-                                                <button type="submit" data-id="read" class="col-md-3 btn btn-light read"><i class="fas fa-star"></i> Przeczytane</button>
+                                                <button type="submit" class="col-lg-3 mr-2 offset-lg-3 col-md-4 offset-md-2 btn btn-light toRead"><i class="fas fa-book"></i> Chcę przeczytać</button>
+                                                <button type="submit" class="col-lg-3 col-md-4 col-sm-8 btn btn-light read"><i class="fas fa-star"></i> Przeczytane</button>
                                             </div>
                                         <?php endif; ?>
 
-                                        <button class="showDesc">Pokaż opis</button>
+                                        <button class="btn btn-secondary my-3 showDesc">Pokaż opis</button>
                                         <div class="showDesc" style="display: none;"><?php echo $book['opis'] ?></div>
+
+
+                                        <div class="commentSection">
+                                            <form method="post"  id="commentForm" class="col-10 offset-1 mt-5">
+
+                                                <div class="form-group">
+                                                    <textarea name="commentContent" id="commentContent" class="form-control" placeholder="Enter comment" rows="5"></textarea>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" data-id="<?php echo $book['id'] ?>" class="btn btn-secondary addComment" >Dodaj komentarz</button>
+                                                </div>
+
+                                            </form>
+                                            <p class="commentMessage"></p>
+                                            <br/>
+    <!--                                        <div id="displayComment"></div>-->
+                                            <div id="commentsList">
+                                        </div>
+
+                                        </div>
+
 
                                     </div>
 
@@ -102,10 +123,10 @@
 
             <h2 class="d-inline-block pt-5 pb-3">Najpopularniejsi autorzy</h2>
 
-            <div class="row">
+            <div class="row shadow mb-5">
 
                 <?php foreach ($this->authors as $key => $author): ?>
-                    <div class="col-lg-2 col-md-4 col-s-10 <?php if ($key == 0): ?>offset-lg-1<?php endif; ?>">
+                    <div class="opacity col-lg-2 col-md-4 col-s-10 <?php if ($key == 0): ?>offset-lg-1<?php endif; ?>">
                         <figure>
 
                             <a data-toggle="modal" data-target="#Modal<?php echo $author['id'] ?>" href="#"><img src="img/<?php echo $author['image'] ?>" alt="<?php echo $author['autor'] ?>"
@@ -143,7 +164,7 @@
 
 
                                                     <input  type="number" min="1" max="10" id="author" class="col-md-2 offset-md-5 form-control my-2  shadow" name="grade" value="">
-                                                    <button type="submit" class="col-md-4 btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
+                                                    <button type="submit" class="col-md-4 btn btn-danger mb-2 addAuthorGrade">Dodaj ocenę</button>
 
 
                                             </div>
@@ -156,6 +177,7 @@
                                         <button class="showDesc">Pokaż opis</button>
                                         <div class="showDesc" style="display: none;"><?php echo $author['opis'] ?></div>
                                     </div>
+
 
                                 </div>
 

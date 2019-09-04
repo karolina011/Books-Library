@@ -35,7 +35,7 @@
                 <option>Romans</option>
                 <option>Thriller</option>
             </select>
-            <label for="noteMin" class="mr-sm-2">Ocena od:</label>
+            <label for="noteMin" class="ml-sm-5 mr-sm-2">Ocena od:</label>
             <select class="form-control mb-2 mr-sm-2" id="noteMin" name="noteMin">
 
                 <?php
@@ -76,6 +76,15 @@
 
             </select>
 
+            <label for="sort" class="ml-sm-5 mr-sm-2">Sortuj według: </label>
+            <select class="form-control mb-2 mr-sm-2" id="sort" name="sort">
+                <option>Oceny (od najwyższej)</option>
+                <option>Oceny (od najniższej)</option>
+                <option>Alfabetu</option>
+                <option>Daty wydania (od najstarszej)</option>
+                <option>Daty wydania (od najnowszej)</option>
+            </select>
+
         </div>
         <br/>
 
@@ -107,11 +116,11 @@
         <?php foreach ($this->filterBooks as $key => $book):?>
 
 
-        <tr>
+        <tr class="tr">
             <td >
-                <a data-toggle="modal" data-target="#myModal<?php echo $book['id'] ?>" href="#">
+                <a class="filtercs" data-toggle="modal" data-target="#myModal<?php echo $book['id'] ?>" href="#">
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-2 ">
                             <img src="<?php echo URL;?>img/<?php echo $book['image'] ?>" alt="<?php echo $book['tytul'] ?>"
                                                                                                              class="img-fluid">
                         </div>
@@ -134,7 +143,7 @@
             </td>
                 <?php if (Session::get('user')['rola'] == 'admin'): ?>
                 <td>
-                    <button class="btn btn-dark btn-xs btn-delete delete-url" data-id="book" value="<?php echo $book['id'] ?>" >Delete</button>
+                    <button class="btn btn-dark btn-xs btn-delete deleteBook" value="<?php echo $book['id'] ?>" >Delete</button>
                     <button class="btn btn-danger btn-xs "><a class="text-white" href="<?php echo URL; ?>Books/editBookView/<?php echo $book['id'] ?>">Edytuj</a></button>
 <!--                    <div class="col-1" >-->
 <!--                        <a href="--><?php //echo URL; ?><!--Books/editBook/--><?php //echo $book['id'] ?><!--">Edytuj</a>-->
@@ -182,7 +191,7 @@
                                             <p class="response text-danger"></p>
 
                                             <input  type="number" min="1" max="10" class="col-md-4 offset-md-4 form-control my-2  shadow" name="grade" value="">
-                                            <button type="submit" class="col-md-6 btn btn-danger mb-2 addGrade">Dodaj ocenę</button>
+                                            <button type="submit" class="col-md-6 btn btn-danger mb-2 addBookGrade">Dodaj ocenę</button>
 
                                     </div>
                                     <hr/>
@@ -195,12 +204,12 @@
                                 <?php if (Session::get('user')) :?>
                                     <p class="response1 text-secondary"></p>
                                     <div class="row mb-3">
-                                        <button type="submit" data-id="toRead" class="col-md-3 mr-2 offset-3 btn btn-light read"><i class="fas fa-book"></i> Chcę przeczytać</button>
-                                        <button type="submit" data-id="read" class="col-md-3 btn btn-light read"><i class="fas fa-star"></i> Przeczytane</button>
+                                        <button type="submit" class="col-md-3 mr-2 offset-3 btn btn-light toRead"><i class="fas fa-book"></i> Chcę przeczytać</button>
+                                        <button type="submit" class="col-md-3 btn btn-light read"><i class="fas fa-star"></i> Przeczytane</button>
                                     </div>
                                 <?php endif; ?>
 
-                                <button class="showDesc" >Pokaż opis</button>
+                                <button class="btn btn-secondary showDesc" >Pokaż opis</button>
                                 <div class="showDesc m-4" style="display: none;"><?php echo $book['opis'] ?></div>
                             </div>
 

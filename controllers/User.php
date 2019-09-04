@@ -10,7 +10,7 @@ class User extends Controller
 
     public function books($bookID)
     {
-        $read = $_POST['read'];
+        $read = $_POST['data'];
         $zakladka = $read==1 ? '"przeczytane"' : '"chcę przeczytać"';
 
         $result = $this->model->isBookExist($bookID, Session::get('user')['id']);
@@ -43,6 +43,49 @@ class User extends Controller
         {
             echo "usunieto";
         }
+    }
+
+    public function updateReadBook($bookID)
+    {
+        $result = $this->model->updateReadBook($bookID, Session::get('user')['id']);
+        if ($result)
+        {
+            echo "zmodyfikowano";
+        }
+    }
+
+    public function addComment($bookId)
+    {
+//        echo '<pre>';
+//        print_r($_POST);
+//        die;
+        $error = '';
+        $commentContent = '';
+
+        if (empty($_POST['data'][0]['value']))
+        {
+            $error = " Nie możesz dodać pustego komentarza. ";
+        }
+        else
+        {
+            $commentContent = $_POST['data'][0]['value'];
+        }
+
+        if ($error == '')
+        {
+            $result = $this->model->addComment($commentContent, $bookId, Session::get('user')['id']);
+            if ($result)
+            {
+                $error = "Komentarz został dodany.";
+            }
+        }
+
+        $data = array(
+            'error' => $error
+        );
+
+        echo json_encode($data);
+
     }
 
 }
