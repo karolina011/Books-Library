@@ -18,19 +18,38 @@ class Index extends Controller
         $result = $this->model->books();
         $result1 = $this->model->authors();
 
-        foreach ($result as $key => &$book)
+        if ($_POST)
         {
-            $comments = $this->model->fetchComments($book['id']);
-            $book['comments'] = $comments;
+            $bookID = $_POST['data']['bookID'];
+            $parentID = $_POST['data']['parentID'];
+            $comments = $this->model->fetchComments($bookID, $parentID);
+
+            $comments= mb_convert_encoding($comments, 'UTF-8', 'UTF-8');
+
+
 //            echo '<pre>';
-//            print_r($book['comments'][0]['comment']);
+//            print_r($comments);
 //            die;
+
+            echo json_encode($comments, JSON_FORCE_OBJECT);
+            die;
+
+//
         }
 
+//        foreach ($result as $key => &$book)
+//        {
+//            $comments = $this->model->fetchComments($book['id'], 0);
+//            $book['comments'] = $comments;
+//                        echo '<pre>';
+//                        print_r($book['comments'][0]['comment']);
+//                        die;
+//        }
 
         $this->view->books = $result;
         $this->view->authors = $result1;
         $this->view->render('index/index');
     }
+
 
 }

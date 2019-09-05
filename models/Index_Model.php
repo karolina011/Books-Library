@@ -24,11 +24,12 @@ class Index_Model extends Model
 
     }
 
-    public function fetchComments($bookID)
+    public function fetchComments($bookID, $parentID)
     {
-        $query = $this->db->prepare('SELECT * FROM comments as c INNER JOIN users as u  ON c.userID = u.id  WHERE c.bookID = :bookID  ORDER BY c.id DESC');
+        $query = $this->db->prepare('SELECT * FROM comments as c INNER JOIN users as u  ON c.userID = u.id  WHERE c.bookID = :bookID AND parentCommentsID = :parentID ORDER BY  c.commentID DESC');
         $query->execute(array(
-            ':bookID' => $bookID
+            ':bookID' => $bookID,
+            ':parentID' => $parentID
         ));
 
         $sth = $query->fetchAll(PDO::FETCH_ASSOC);

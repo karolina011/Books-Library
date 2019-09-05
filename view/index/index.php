@@ -22,7 +22,7 @@
                     <div class="opacity col-lg-2 col-md-4 col-s-10 <?php if ($key == 0): ?>offset-lg-1<?php endif; ?> rounded">
                         <figure>
 
-                            <a data-toggle="modal" data-target="#myModal<?php echo $book['id'] ?>" href="#"><img src="img/<?php echo $book['image'] ?>" alt="<?php echo $book['tytul'] ?>"
+                            <a data-toggle="modal" data-id="<?php echo $book['id'] ?>" class="clearResponse fetchComments" data-target="#myModal<?php echo $book['id'] ?>" href="#"><img src="img/<?php echo $book['image'] ?>" alt="<?php echo $book['tytul'] ?>"
                                              class="img-fluid"></a>
                             <figcaption><?php echo $book['tytul'] ?></figcaption>
 
@@ -82,39 +82,57 @@
 
 
                                         <div class="commentSection">
-                                            <form method="post"  id="commentForm" class="col-10 offset-1 mt-5">
+                                            <form method="post"  class="commentForm col-10 offset-1 mt-5">
 
                                                 <div class="form-group">
-                                                    <textarea name="commentContent" id="commentContent" class="form-control" placeholder="Enter comment" rows="5"></textarea>
+                                                    <input type="hidden" name="parentID" value="0"/>
+                                                    <textarea name="commentContent" class="commentContent form-control" placeholder="Enter comment" rows="5"></textarea>
                                                 </div>
                                                 <div class="form-group">
                                                     <button type="submit" data-id="<?php echo $book['id'] ?>" class="btn btn-secondary addComment" >Dodaj komentarz</button>
+                                                    <p class="commentMessage"></p>
                                                 </div>
-
                                             </form>
-                                            <p class="commentMessage"></p>
+
                                             <br/>
                                             <div id="displayComment"></div>
                                             <div id="commentsList"></div>
 
-                                                <div class="card col-lg-10 offset-lg-1 py-2">
+                                                <div class="card col-lg-10 offset-lg-1 py-2 border" id="com<?php echo $book['id'] ?>">
 
                                                     <?php foreach ($book['comments'] as $key2 => $comment ): ?>
 
-                                                        <div class="card-header bg-danger mt-3">
-                                                            <div class="row">
-                                                                <div class="text-left col-5 pl-3"><b><?php echo $comment['login']?></b></div>
-                                                                <div class="col-7 text-right"><?php echo $comment['data']?></div>
+                                                        <div class="oneComment">
+                                                            <div class="card-header bg-danger mt-3">
+                                                                <div class="row">
+                                                                    <div class="text-left col-5 pl-3"><b><?php echo $comment['login']?></b></div>
+                                                                    <div class="col-7 text-right"><?php echo $comment['data']?></div>
+                                                                </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="card-body bg-light p-3">
-                                                            <div><?php echo $comment['comment']?></div>
-                                                        </div>
-                                                        <div class="card-footer bg-light">
-                                                            <div class="row" data-id="<?php echo $comment['id']?>">
-                                                                <div class="like text-secondary float-right mx-2 mb-0 p-2"><i class="fas fa-thumbs-up"></i>Like</div>
-                                                                <div class="unlike text-danger float-right mx-2 mb-0 p-2"><i class="fas fa-thumbs-down"></i>Unike</div>
-                                                                <button type="button" class="btn btn-secondary reply py-0 px-2">Odpowiedz</button>
+                                                            <div class="card-body bg-light p-3 border-left border-right border-bottom-0">
+                                                                <div><?php echo $comment['comment']?></div>
+                                                            </div>
+                                                            <div class="card-footer bg-light p-1 border ">
+                                                                <div class="row" data-id="<?php echo $comment['commentID']?>">
+                                                                    <div class="like text-secondary float-right mx-2 mb-0 p-2"><i class="fas fa-thumbs-up"></i>Like</div>
+                                                                    <div class="unlike text-danger float-right mx-2 mb-0 p-2"><i class="fas fa-thumbs-down"></i>Unike</div>
+                                                                    <button type="button" class="reply btn btn-secondary py-0 px-2">Odpowiedz</button>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="showReply col-11 offset-1" style="display: none;">
+                                                                <form method="post"  class="commentForm mt-2">
+
+                                                                    <div class="form-group">
+                                                                        <input type="hidden" name="parentID" value="<?php echo $comment['commentID']?>"/>
+                                                                        <textarea name="commentContent" class="commentContent form-control" placeholder="Enter comment" rows="5"></textarea>
+                                                                    </div>
+                                                                    <div class="form-group">
+                                                                        <button type="submit" data-id="<?php echo $book['id'] ?>" class="btn btn-secondary addComment" >Dodaj komentarz</button>
+                                                                        <p class="commentMessage"></p>
+                                                                    </div>
+                                                                </form>
+
                                                             </div>
                                                         </div>
 

@@ -4,6 +4,33 @@ $(document).on('click', 'button.showDesc', function () {
    $(this).next("div").toggle("slow");
 });
 
+$(document).on('click', '.clearResponse', function () {
+   $('.response').text(" ");
+   $('.response1').text(" ");
+   $('.commentMessage').text(" ");
+});
+
+$(document).on('click', '.fetchComments', function () {
+   var id = $(this).data('id');
+   var parentID = 0;
+   var data = {bookID:id, parentID:parentID};
+   var url = window.location.origin + "/Books-Library/Index/index";
+
+   sendAjax2(url, data, function (data) {
+      console.log(data[0]['commentID']);
+   });
+
+});
+
+
+
+$(document).on('click', 'button.reply', function () {
+   var card = $(this).closest('.oneComment');
+   var showreply = card.find('.showReply');
+   $(showreply).toggle("slow");
+   // $(this).next('.showreply').toggle("slow");
+});
+
 $(document).ready(function(){
    $(".opacity").hover(function() {
       $(this).animate({opacity: '0.7'}, 250);
@@ -221,8 +248,8 @@ $(document).ready(function () {
       sendAjax2(url, data, function (data) {
          if(data.error != '')
          {
-            // alert(data.error);
-            form.parents('.commentSection:first').find('.commentMessage:first').text(data.error);
+            form.find('.commentMessage:first').text(data.error);
+
          }
       })
    });

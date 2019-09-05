@@ -4,6 +4,19 @@
 class User_Model extends Model
 {
 
+    public function getBook($bookID)
+    {
+
+        $query = $this->db->prepare('SELECT * FROM ksiazki WHERE id = :bookID');
+        $query->execute(array(
+            ':bookID' => $bookID,
+        ));
+        $sth = $query->fetch(PDO::FETCH_ASSOC);
+
+        return $sth ?? false;
+
+    }
+
     public function isBookExist($bookID, $userID)
     {
 
@@ -78,12 +91,12 @@ class User_Model extends Model
         }
     }
 
-    public function addComment($comment, $bookID, $userID)
+    public function addComment($parentID, $comment, $bookID, $userID)
     {
         try {
             $query = $this->db->prepare('INSERT INTO comments (parentCommentsID, comment, bookID, userID) VALUES (:parentCommentsID, :comment, :bookID, :userID)');
             $query->execute(array(
-                ':parentCommentsID' => 0,
+                ':parentCommentsID' => $parentID,
                 ':comment' => $comment,
                 ':bookID' => $bookID,
                 ':userID' => $userID
@@ -93,5 +106,17 @@ class User_Model extends Model
         catch (Exception $exception) {
             return false;
         }
+    }
+
+    public function fetchComments($bookID)
+    {
+        $query = $this->db->prepare('SELECT * FROM comments as c INNER JOIN users as u  ON c.userID = u.id  WHERE c.bookID = :bookID  ORDER BY c.commentID DESC');
+        $query->execute(array(
+            ':bookID' => $bookID
+        ));
+
+        $sth = $query->fetchAll(PDO::FETCH_ASSOC);
+
+        return $sth ?? false;
     }
 }

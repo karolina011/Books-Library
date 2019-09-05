@@ -61,21 +61,27 @@ class User extends Controller
 //        die;
         $error = '';
         $commentContent = '';
+        $parentID = $_POST['data'][0]['value'];
 
-        if (empty($_POST['data'][0]['value']))
+        if (empty($_POST['data'][1]['value']))
         {
             $error = " Nie możesz dodać pustego komentarza. ";
         }
         else
         {
-            $commentContent = $_POST['data'][0]['value'];
+            $commentContent = $_POST['data'][1]['value'];
         }
 
         if ($error == '')
         {
-            $result = $this->model->addComment($commentContent, $bookId, Session::get('user')['id']);
+            $result = $this->model->addComment($parentID, $commentContent, $bookId, Session::get('user')['id']);
             if ($result)
             {
+//                $indexModel = new Index_Model();
+//                $book = $this->model->getBook($bookId);
+//                $comments = $this->model->fetchComments($book['id']);
+//                $book['comments'] = $comments;
+//                $this->view->render("index/oneComment", true);
                 $error = "Komentarz został dodany.";
             }
         }
