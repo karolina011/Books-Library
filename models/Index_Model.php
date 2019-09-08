@@ -1,6 +1,5 @@
 <?php
 
-
 class Index_Model extends Model
 {
     public function books()
@@ -26,7 +25,7 @@ class Index_Model extends Model
 
     public function fetchComments($bookID, $parentID)
     {
-        $query = $this->db->prepare('SELECT * FROM comments as c INNER JOIN users as u  ON c.userID = u.id  WHERE c.bookID = :bookID AND parentCommentsID = :parentID ORDER BY  c.commentID DESC');
+        $query = $this->db->prepare('SELECT * FROM comments as c INNER JOIN users as u  ON c.userID = u.id  WHERE c.bookID = :bookID AND parentCommentsID = :parentID ORDER BY  c.commentID ASC');
         $query->execute(array(
             ':bookID' => $bookID,
             ':parentID' => $parentID

@@ -15,24 +15,42 @@ class Index extends Controller
 
     public function index()
     {
-        $result = $this->model->books();
-        $result1 = $this->model->authors();
-
         if ($_POST)
         {
             $bookID = $_POST['data']['bookID'];
             $parentID = $_POST['data']['parentID'];
             $comments = $this->model->fetchComments($bookID, $parentID);
 
-            $comments= mb_convert_encoding($comments, 'UTF-8', 'UTF-8');
+            foreach ($comments as $key =>&$comment)
+            {
+                $commentFirstReplies = $this->model->fetchComments($bookID, $comment['commentID']);
+                $comment['firstReplies'] = $commentFirstReplies;
 
+                foreach ($comment['firstReplies'] as $key =>&$com)
+                {
+                    $commentSecondReplies = $this->model->fetchComments($bookID, $com['commentID']);
+                    $com['secondReplies'] = $commentSecondReplies;
+                }
+
+            }
 
 //            echo '<pre>';
 //            print_r($comments);
 //            die;
 
-            echo json_encode($comments, JSON_FORCE_OBJECT);
+//            $this->view->commentFirstReplies = $commentFirstReplies;
+            $this->view->comments = $comments;
+            $this->view->render('index/comments', true);
             die;
+
+
+//            $comments= mb_convert_encoding($comments, 'UTF-8', 'UTF-8');
+//            echo '<pre>';
+//            print_r($comments);
+//            die;
+
+//            echo json_encode($comments);
+//            die;
 
 //
         }
@@ -46,10 +64,14 @@ class Index extends Controller
 //                        die;
 //        }
 
+        $result = $this->model->books();
+        $result1 = $this->model->authors();
         $this->view->books = $result;
         $this->view->authors = $result1;
         $this->view->render('index/index');
     }
+
+
 
 
 }

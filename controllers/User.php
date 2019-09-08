@@ -77,11 +77,18 @@ class User extends Controller
             $result = $this->model->addComment($parentID, $commentContent, $bookId, Session::get('user')['id']);
             if ($result)
             {
-//                $indexModel = new Index_Model();
-//                $book = $this->model->getBook($bookId);
-//                $comments = $this->model->fetchComments($book['id']);
-//                $book['comments'] = $comments;
-//                $this->view->render("index/oneComment", true);
+                require_once 'models/Index_Model.php';
+                $indexModel = new Index_Model();
+                $book = $this->model->getBook($bookId);
+                $comments = $indexModel->fetchComments($book['id'], $parentID);
+
+                $book['comments'] = $comments;
+                $this->view->oneComment = $book['comments'][0];
+//                echo '<pre>';
+//                print_r($book['comments'][0]);
+//                die;
+                $this->view->render("index/oneComment", true);
+                die;
                 $error = "Komentarz został dodany.";
             }
         }
@@ -91,6 +98,7 @@ class User extends Controller
         );
 
         echo json_encode($data);
+        die;
 
     }
 

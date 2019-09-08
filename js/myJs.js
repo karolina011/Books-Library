@@ -11,13 +11,14 @@ $(document).on('click', '.clearResponse', function () {
 });
 
 $(document).on('click', '.fetchComments', function () {
+   var div = $(this).closest('.oneModal');
    var id = $(this).data('id');
    var parentID = 0;
    var data = {bookID:id, parentID:parentID};
    var url = window.location.origin + "/Books-Library/Index/index";
 
-   sendAjax2(url, data, function (data) {
-      console.log(data[0]['commentID']);
+   sendAjax1(url, data, function (data) {
+      div.find('.commentList').html(data.responseText);
    });
 
 });
@@ -25,11 +26,17 @@ $(document).on('click', '.fetchComments', function () {
 
 
 $(document).on('click', 'button.reply', function () {
+   console.log($(this).data('type'));
    var card = $(this).closest('.oneComment');
-   var showreply = card.find('.showReply');
-   $(showreply).toggle("slow");
-   // $(this).next('.showreply').toggle("slow");
+   var firstReplyField = card.find($(this).data('type'));
+   $(firstReplyField).toggle("slow");
 });
+
+// $(document).on('click', 'button.secondReply', function () {
+//    var card = $(this).closest('.oneComment');
+//    var secondReplyField = card.find('.secondReplyField');
+//    $(secondReplyField).toggle("slow");
+// });
 
 $(document).ready(function(){
    $(".opacity").hover(function() {
@@ -239,17 +246,18 @@ $(document).ready(function () {
       event.preventDefault();
       var form = $(this).parents('form:first');
       var data = form.serializeArray();
+      var div = $(this).closest('.commentList');
       // console.log(data);
       // return;
 
       var id = $(this).data('id');
       var url = window.location.origin + "/Books-Library/User/addComment/" + id;
 
-      sendAjax2(url, data, function (data) {
+      sendAjax1(url, data, function (data) {
          if(data.error != '')
          {
             form.find('.commentMessage:first').text(data.error);
-
+            div.prepend(data.responseText);
          }
       })
    });
